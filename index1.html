@@ -1,0 +1,566 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личность и группа — Тест на конформизм</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            padding: 35px 15px;
+            color: #29283b;
+            position: relative;
+            overflow-x: hidden;
+
+            background:
+                radial-gradient(circle at 10% 15%,
+                    rgba(255,255,255,0.20) 0 90px,
+                    transparent 91px),
+                radial-gradient(circle at 90% 75%,
+                    rgba(255,255,255,0.15) 0 130px,
+                    transparent 131px),
+                radial-gradient(circle at 80% 10%,
+                    rgba(190,170,255,0.30) 0 65px,
+                    transparent 66px),
+                linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        /* Декоративные фигуры */
+
+        body::before {
+            content: "";
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            top: -100px;
+            left: -100px;
+            background: rgba(255,255,255,0.12);
+            border-radius: 50%;
+            filter: blur(3px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            width: 350px;
+            height: 350px;
+            bottom: -150px;
+            right: -100px;
+            background: rgba(220,205,255,0.16);
+            border-radius: 40%;
+            transform: rotate(35deg);
+            filter: blur(5px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 35px;
+            border-radius: 22px;
+            box-shadow: 0 15px 45px rgba(30, 20, 70, 0.22);
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            color: #5141a0;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #77738c;
+            line-height: 1.5;
+            margin-bottom: 5px;
+        }
+
+        .info {
+            background: #f3f0ff;
+            border-left: 4px solid #7962d9;
+            padding: 16px;
+            border-radius: 10px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #514b70;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #68627f;
+        }
+
+        .progress-container {
+            height: 9px;
+            background: #ece9f5;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #667eea, #9b70dc);
+            border-radius: 20px;
+            transition: width 0.3s ease;
+        }
+
+        .question {
+            background: #faf9ff;
+            border: 1px solid #e9e5f5;
+            padding: 22px;
+            border-radius: 14px;
+            margin-bottom: 20px;
+        }
+
+        .question h3 {
+            font-size: 17px;
+            line-height: 1.5;
+            margin-bottom: 16px;
+            color: #38334f;
+        }
+
+        .question-number {
+            color: #8068d7;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        .option {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            background: #ffffff;
+            border: 1px solid #e5e1ef;
+            padding: 13px;
+            border-radius: 9px;
+            margin-bottom: 9px;
+            cursor: pointer;
+            transition: 0.2s;
+            line-height: 1.5;
+        }
+
+        .option:last-child {
+            margin-bottom: 0;
+        }
+
+        .option:hover {
+            border-color: #8c78df;
+            background: #f5f2ff;
+        }
+
+        .option:has(input:checked) {
+            border-color: #7962d9;
+            background: #f0edff;
+        }
+
+        .option input {
+            margin-top: 4px;
+            accent-color: #7962d9;
+            flex-shrink: 0;
+        }
+
+        .main-button {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 20px;
+        }
+
+        .main-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 18px rgba(102, 126, 234, 0.3);
+        }
+
+        .warning {
+            display: none;
+            color: #d94b62;
+            background: #fff0f2;
+            padding: 12px;
+            border-radius: 9px;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        #result {
+            display: none;
+            text-align: center;
+            padding: 25px 10px;
+        }
+
+        .result-label {
+            color: #77738c;
+            margin-bottom: 10px;
+        }
+
+        .score {
+            font-size: 48px;
+            font-weight: bold;
+            color: #705bc6;
+            margin-bottom: 15px;
+        }
+
+        #resultTitle {
+            font-size: 25px;
+            color: #5141a0;
+            margin-bottom: 15px;
+        }
+
+        #resultDescription {
+            color: #625e75;
+            line-height: 1.7;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .restart-button {
+            max-width: 350px;
+            margin: 25px auto 0;
+        }
+
+        .footer {
+            text-align: center;
+            color: #9994aa;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 15px 10px;
+            }
+
+            .container {
+                padding: 22px 16px;
+            }
+
+            .header h1 {
+                font-size: 26px;
+            }
+
+            .question {
+                padding: 16px;
+            }
+
+            .question h3 {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>Личность и группа</h1>
+        <p>Тест на определение уровня конформизма</p>
+        <p>Узнай, насколько сильно мнение окружающих влияет на твои решения.</p>
+    </div>
+
+    <div class="info">
+        <strong>Инструкция:</strong>
+        Прочитай каждый вопрос и выбери вариант ответа,
+        который наиболее точно описывает твоё обычное поведение.
+        Здесь нет правильных или неправильных ответов.
+    </div>
+
+    <div class="progress-info">
+        <span>Прогресс прохождения</span>
+        <span id="progressText">0 из 10</span>
+    </div>
+
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <form id="testForm">
+
+        <div id="questions"></div>
+
+        <p class="warning" id="warning">
+            Пожалуйста, ответь на все 10 вопросов.
+        </p>
+
+        <button type="submit" class="main-button">
+            Узнать результат
+        </button>
+
+    </form>
+
+    <div id="result">
+
+        <p class="result-label">Твой результат</p>
+
+        <div class="score" id="score">0 / 20</div>
+
+        <h2 id="resultTitle"></h2>
+
+        <p id="resultDescription"></p>
+
+        <button
+            type="button"
+            class="main-button restart-button"
+            onclick="restartTest()">
+            Пройти тест заново
+        </button>
+
+    </div>
+
+    <div class="footer">
+        Учебный психологический опросник.
+        Результат не является психологическим диагнозом.
+    </div>
+
+</div>
+
+<script>
+    const questions = [
+        {
+            text: "Ты пришёл в компанию, где все уже знакомы друг с другом. Обычно ты:",
+            answers: [
+                "Сразу начинаю общаться и веду себя как обычно.",
+                "Сначала присматриваюсь к людям, а потом подключаюсь к разговору.",
+                "Стараюсь вести себя так, чтобы быстрее понравиться остальным."
+            ]
+        },
+        {
+            text: "Твои друзья решили посмотреть фильм, который тебе совершенно не интересен. Как поступишь?",
+            answers: [
+                "Предложу посмотреть что-нибудь другое.",
+                "Не буду спорить и посмотрю вместе со всеми.",
+                "Попробую убедить остальных выбрать другой фильм, но если не получится — соглашусь."
+            ]
+        },
+        {
+            text: "Ты высказал своё мнение, но все остальные в компании думают иначе. Что будешь делать?",
+            answers: [
+                "Объясню свою позицию, даже если никто меня не поддерживает.",
+                "Выслушаю остальных и подумаю, возможно, я чего-то не учёл.",
+                "Скорее соглашусь с большинством, чтобы не создавать спор."
+            ]
+        },
+        {
+            text: "В компании все смеются над шуткой, которую ты считаешь неуместной. Как ты отреагируешь?",
+            answers: [
+                "Не стану смеяться, если мне действительно не смешно.",
+                "Просто промолчу и не буду обращать на это внимания.",
+                "Тоже посмеюсь, чтобы не выглядеть чужим среди остальных."
+            ]
+        },
+        {
+            text: "Одногруппники решили пропустить занятие и зовут тебя с собой. Твоё отношение?",
+            answers: [
+                "Не пойду, если сам не хочу пропускать.",
+                "Сначала подумаю, насколько это важно для меня.",
+                "Скорее всего, пойду вместе со всеми."
+            ]
+        },
+        {
+            text: "Ты купил вещь, которая тебе очень нравится, но друзья начинают говорить, что она тебе не подходит. Что сделаешь?",
+            answers: [
+                "Оставлю её, если самому нравится.",
+                "Прислушаюсь к их мнению, но окончательно решу сам.",
+                "Начну сомневаться и, возможно, передумаю."
+            ]
+        },
+        {
+            text: "В новой компании все придерживаются определённых правил поведения, которые тебе непривычны. Как поступишь?",
+            answers: [
+                "Буду вести себя так, как привык, если это никому не мешает.",
+                "Постараюсь немного подстроиться под компанию.",
+                "Полностью изменю своё поведение, чтобы не выделяться."
+            ]
+        },
+        {
+            text: "Во время группового задания все выбрали один вариант решения, хотя ты считаешь другой вариант более удачным.",
+            answers: [
+                "Буду отстаивать свой вариант и объясню его преимущества.",
+                "Предложу сравнить оба варианта перед принятием решения.",
+                "Соглашусь с группой, чтобы не затягивать обсуждение."
+            ]
+        },
+        {
+            text: "Тебя пригласили на мероприятие, куда идут почти все твои друзья, но у тебя нет особого желания туда идти.",
+            answers: [
+                "Откажусь, если не хочу.",
+                "Возможно, пойду ненадолго ради компании.",
+                "Пойду, потому что не хочется оставаться в стороне."
+            ]
+        },
+        {
+            text: "Как ты обычно ведёшь себя, когда понимаешь, что твоё мнение отличается от мнения большинства?",
+            answers: [
+                "Спокойно говорю то, что думаю.",
+                "Иногда сомневаюсь, но стараюсь разобраться самостоятельно.",
+                "Часто предпочитаю не высказываться, чтобы не отличаться от остальных."
+            ]
+        }
+    ];
+
+    const questionsContainer = document.getElementById("questions");
+    const form = document.getElementById("testForm");
+    const warning = document.getElementById("warning");
+    const progressBar = document.getElementById("progressBar");
+    const progressText = document.getElementById("progressText");
+
+    function renderQuestions() {
+        questionsContainer.innerHTML = "";
+
+        questions.forEach((question, index) => {
+            const questionDiv = document.createElement("div");
+            questionDiv.className = "question";
+
+            const title = document.createElement("h3");
+            title.innerHTML =
+                `<span class="question-number">${index + 1}.</span>`;
+
+            title.appendChild(document.createTextNode(question.text));
+            questionDiv.appendChild(title);
+
+            question.answers.forEach((answer, answerIndex) => {
+                const label = document.createElement("label");
+                label.className = "option";
+
+                const radio = document.createElement("input");
+                radio.type = "radio";
+                radio.name = `question${index}`;
+                radio.value = answerIndex;
+
+                radio.addEventListener("change", updateProgress);
+
+                const span = document.createElement("span");
+                span.textContent = answer;
+
+                label.appendChild(radio);
+                label.appendChild(span);
+
+                questionDiv.appendChild(label);
+            });
+
+            questionsContainer.appendChild(questionDiv);
+        });
+    }
+
+    function updateProgress() {
+        const answered = questions.filter((_, index) => {
+            return document.querySelector(
+                `input[name="question${index}"]:checked`
+            );
+        }).length;
+
+        const percent = (answered / questions.length) * 100;
+
+        progressBar.style.width = percent + "%";
+        progressText.textContent = `${answered} из ${questions.length}`;
+    }
+
+    form.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        let score = 0;
+        let answered = 0;
+
+        questions.forEach((_, index) => {
+            const selected = document.querySelector(
+                `input[name="question${index}"]:checked`
+            );
+
+            if (selected) {
+                answered++;
+                score += Number(selected.value);
+            }
+        });
+
+        if (answered !== questions.length) {
+            warning.style.display = "block";
+            return;
+        }
+
+        warning.style.display = "none";
+
+        form.style.display = "none";
+        document.querySelector(".info").style.display = "none";
+        document.querySelector(".progress-info").style.display = "none";
+        document.querySelector(".progress-container").style.display = "none";
+
+        document.getElementById("score").textContent = score + " / 20";
+
+        const resultTitle = document.getElementById("resultTitle");
+        const resultDescription = document.getElementById("resultDescription");
+
+        if (score <= 6) {
+            resultTitle.textContent = "Низкий уровень конформизма";
+            resultDescription.textContent =
+                "Ты обычно самостоятельно принимаешь решения и не склонен менять своё мнение только из-за давления окружающих. Для тебя важно сохранять собственную позицию.";
+        } else if (score <= 13) {
+            resultTitle.textContent = "Средний уровень конформизма";
+            resultDescription.textContent =
+                "Ты умеешь учитывать мнение окружающих, но при этом стараешься сохранять собственную точку зрения. В некоторых ситуациях мнение группы может повлиять на твои решения.";
+        } else {
+            resultTitle.textContent = "Высокий уровень конформизма";
+            resultDescription.textContent =
+                "Ты достаточно сильно учитываешь мнение окружающих и иногда предпочитаешь подстраиваться под большинство. Для тебя может быть важно одобрение группы и ощущение принадлежности к ней.";
+        }
+
+        document.getElementById("result").style.display = "block";
+    });
+
+    function restartTest() {
+        form.reset();
+
+        form.style.display = "block";
+        document.querySelector(".info").style.display = "block";
+        document.querySelector(".progress-info").style.display = "flex";
+        document.querySelector(".progress-container").style.display = "block";
+
+        document.getElementById("result").style.display = "none";
+        warning.style.display = "none";
+
+        progressBar.style.width = "0%";
+        progressText.textContent = "0 из 10";
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+
+    renderQuestions();
+</script>
+
+</body>
+</html>
