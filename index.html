@@ -13,6 +13,8 @@
             padding: 0;
         }
 
+        /* ОСНОВНОЙ ФОН */
+
         body {
             font-family: Arial, sans-serif;
             min-height: 100vh;
@@ -22,30 +24,32 @@
             overflow-x: hidden;
 
             background:
-                radial-gradient(circle at 10% 15%,
-                    rgba(255,255,255,0.20) 0 90px,
-                    transparent 91px),
-                radial-gradient(circle at 90% 75%,
-                    rgba(255,255,255,0.15) 0 130px,
-                    transparent 131px),
-                radial-gradient(circle at 80% 10%,
-                    rgba(190,170,255,0.30) 0 65px,
-                    transparent 66px),
+                radial-gradient(circle at 5% 15%,
+                    rgba(255,255,255,0.28) 0 100px,
+                    transparent 102px),
+                radial-gradient(circle at 95% 80%,
+                    rgba(255,255,255,0.22) 0 140px,
+                    transparent 142px),
+                radial-gradient(circle at 85% 15%,
+                    rgba(190,170,255,0.35) 0 80px,
+                    transparent 82px),
                 linear-gradient(135deg, #667eea, #764ba2);
         }
 
-        /* Декоративные фигуры */
+        /* ДЕКОРАТИВНЫЕ ФИГУРЫ */
 
         body::before {
             content: "";
             position: fixed;
-            width: 300px;
-            height: 300px;
-            top: -100px;
-            left: -100px;
-            background: rgba(255,255,255,0.12);
+            width: 260px;
+            height: 260px;
+            top: 5%;
+            left: -130px;
+            border: 2px solid rgba(255,255,255,0.25);
             border-radius: 50%;
-            filter: blur(3px);
+            box-shadow:
+                0 0 0 25px rgba(255,255,255,0.06),
+                0 0 0 55px rgba(255,255,255,0.04);
             pointer-events: none;
             z-index: 0;
         }
@@ -53,17 +57,22 @@
         body::after {
             content: "";
             position: fixed;
-            width: 350px;
-            height: 350px;
-            bottom: -150px;
-            right: -100px;
-            background: rgba(220,205,255,0.16);
-            border-radius: 40%;
+            width: 230px;
+            height: 230px;
+            bottom: 5%;
+            right: -110px;
+            background: rgba(220,205,255,0.20);
+            border: 2px solid rgba(255,255,255,0.25);
+            border-radius: 35%;
             transform: rotate(35deg);
-            filter: blur(5px);
+            box-shadow:
+                0 0 0 25px rgba(255,255,255,0.06),
+                0 0 0 55px rgba(255,255,255,0.04);
             pointer-events: none;
             z-index: 0;
         }
+
+        /* ГЛАВНАЯ КАРТОЧКА */
 
         .container {
             max-width: 850px;
@@ -75,6 +84,8 @@
             position: relative;
             z-index: 1;
         }
+
+        /* ЗАГОЛОВОК */
 
         .header {
             text-align: center;
@@ -93,6 +104,8 @@
             margin-bottom: 5px;
         }
 
+        /* ИНСТРУКЦИЯ */
+
         .info {
             background: #f3f0ff;
             border-left: 4px solid #7962d9;
@@ -102,6 +115,8 @@
             margin-bottom: 25px;
             color: #514b70;
         }
+
+        /* ПРОГРЕСС */
 
         .progress-info {
             display: flex;
@@ -128,6 +143,8 @@
             transition: width 0.3s ease;
         }
 
+        /* ВОПРОСЫ */
+
         .question {
             background: #faf9ff;
             border: 1px solid #e9e5f5;
@@ -148,6 +165,8 @@
             font-weight: bold;
             margin-right: 5px;
         }
+
+        /* ВАРИАНТЫ ОТВЕТОВ */
 
         .option {
             display: flex;
@@ -183,6 +202,8 @@
             flex-shrink: 0;
         }
 
+        /* КНОПКИ */
+
         .main-button {
             display: block;
             width: 100%;
@@ -203,6 +224,8 @@
             box-shadow: 0 7px 18px rgba(102, 126, 234, 0.3);
         }
 
+        /* ПРЕДУПРЕЖДЕНИЕ */
+
         .warning {
             display: none;
             color: #d94b62;
@@ -212,6 +235,8 @@
             margin-top: 15px;
             text-align: center;
         }
+
+        /* РЕЗУЛЬТАТ */
 
         #result {
             display: none;
@@ -249,6 +274,8 @@
             margin: 25px auto 0;
         }
 
+        /* ПОДВАЛ */
+
         .footer {
             text-align: center;
             color: #9994aa;
@@ -257,9 +284,35 @@
             margin-top: 30px;
         }
 
+        /* АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ */
+
         @media (max-width: 600px) {
+
             body {
-                padding: 15px 10px;
+                padding: 18px 10px;
+
+                background:
+                    radial-gradient(circle at 0% 8%,
+                        rgba(255,255,255,0.30) 0 85px,
+                        transparent 87px),
+                    radial-gradient(circle at 100% 90%,
+                        rgba(255,255,255,0.25) 0 110px,
+                        transparent 112px),
+                    linear-gradient(145deg, #667eea, #764ba2);
+            }
+
+            body::before {
+                width: 190px;
+                height: 190px;
+                top: 3%;
+                left: -100px;
+            }
+
+            body::after {
+                width: 180px;
+                height: 180px;
+                bottom: 3%;
+                right: -90px;
             }
 
             .container {
@@ -278,6 +331,7 @@
                 font-size: 16px;
             }
         }
+
     </style>
 </head>
 
@@ -348,6 +402,7 @@
 </div>
 
 <script>
+
     const questions = [
         {
             text: "Ты пришёл в компанию, где все уже знакомы друг с другом. Обычно ты:",
@@ -437,14 +492,19 @@
     const progressBar = document.getElementById("progressBar");
     const progressText = document.getElementById("progressText");
 
+    // СОЗДАНИЕ ВОПРОСОВ
+
     function renderQuestions() {
+
         questionsContainer.innerHTML = "";
 
         questions.forEach((question, index) => {
+
             const questionDiv = document.createElement("div");
             questionDiv.className = "question";
 
             const title = document.createElement("h3");
+
             title.innerHTML =
                 `<span class="question-number">${index + 1}.</span>`;
 
@@ -452,6 +512,7 @@
             questionDiv.appendChild(title);
 
             question.answers.forEach((answer, answerIndex) => {
+
                 const label = document.createElement("label");
                 label.className = "option";
 
@@ -469,32 +530,45 @@
                 label.appendChild(span);
 
                 questionDiv.appendChild(label);
+
             });
 
             questionsContainer.appendChild(questionDiv);
+
         });
+
     }
 
+    // ОБНОВЛЕНИЕ ПРОГРЕССА
+
     function updateProgress() {
+
         const answered = questions.filter((_, index) => {
+
             return document.querySelector(
                 `input[name="question${index}"]:checked`
             );
+
         }).length;
 
         const percent = (answered / questions.length) * 100;
 
         progressBar.style.width = percent + "%";
         progressText.textContent = `${answered} из ${questions.length}`;
+
     }
 
+    // ПОДСЧЁТ РЕЗУЛЬТАТА
+
     form.addEventListener("submit", function(event) {
+
         event.preventDefault();
 
         let score = 0;
         let answered = 0;
 
         questions.forEach((_, index) => {
+
             const selected = document.querySelector(
                 `input[name="question${index}"]:checked`
             );
@@ -503,16 +577,20 @@
                 answered++;
                 score += Number(selected.value);
             }
+
         });
 
         if (answered !== questions.length) {
+
             warning.style.display = "block";
             return;
+
         }
 
         warning.style.display = "none";
 
         form.style.display = "none";
+
         document.querySelector(".info").style.display = "none";
         document.querySelector(".progress-info").style.display = "none";
         document.querySelector(".progress-container").style.display = "none";
@@ -523,31 +601,46 @@
         const resultDescription = document.getElementById("resultDescription");
 
         if (score <= 6) {
+
             resultTitle.textContent = "Низкий уровень конформизма";
+
             resultDescription.textContent =
                 "Ты обычно самостоятельно принимаешь решения и не склонен менять своё мнение только из-за давления окружающих. Для тебя важно сохранять собственную позицию.";
+
         } else if (score <= 13) {
+
             resultTitle.textContent = "Средний уровень конформизма";
+
             resultDescription.textContent =
                 "Ты умеешь учитывать мнение окружающих, но при этом стараешься сохранять собственную точку зрения. В некоторых ситуациях мнение группы может повлиять на твои решения.";
+
         } else {
+
             resultTitle.textContent = "Высокий уровень конформизма";
+
             resultDescription.textContent =
                 "Ты достаточно сильно учитываешь мнение окружающих и иногда предпочитаешь подстраиваться под большинство. Для тебя может быть важно одобрение группы и ощущение принадлежности к ней.";
+
         }
 
         document.getElementById("result").style.display = "block";
+
     });
 
+    // ПОВТОРНОЕ ПРОХОЖДЕНИЕ ТЕСТА
+
     function restartTest() {
+
         form.reset();
 
         form.style.display = "block";
+
         document.querySelector(".info").style.display = "block";
         document.querySelector(".progress-info").style.display = "flex";
         document.querySelector(".progress-container").style.display = "block";
 
         document.getElementById("result").style.display = "none";
+
         warning.style.display = "none";
 
         progressBar.style.width = "0%";
@@ -557,9 +650,11 @@
             top: 0,
             behavior: "smooth"
         });
+
     }
 
     renderQuestions();
+
 </script>
 
 </body>
