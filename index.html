@@ -2,378 +2,497 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Личность и группа — Тест на конформизм</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Личность и группа — Тест на конформизм</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-        /* ОСНОВНОЙ ФОН */
+body {
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    padding: 35px 15px;
+    color: #29234f;
+    position: relative;
+    overflow-x: hidden;
 
-        body {
-            font-family: Arial, sans-serif;
-            min-height: 100vh;
-            padding: 35px 15px;
-            color: #29283b;
-            position: relative;
-            overflow-x: hidden;
+    background:
+        radial-gradient(ellipse at 72% 5%,
+            rgba(255,174,255,.75), transparent 24%),
+        radial-gradient(ellipse at 95% 55%,
+            rgba(207,133,255,.65), transparent 25%),
+        radial-gradient(ellipse at 10% 45%,
+            rgba(143,158,255,.75), transparent 35%),
+        radial-gradient(ellipse at 50% 100%,
+            rgba(153,105,255,.6), transparent 35%),
+        linear-gradient(115deg,#5268e8 0%,#6954e5 45%,#8039c5 100%);
 
-            background:
-                radial-gradient(ellipse at 8% 12%,
-                    rgba(255,255,255,0.24) 0%,
-                    transparent 28%),
-                radial-gradient(ellipse at 92% 85%,
-                    rgba(211,190,255,0.25) 0%,
-                    transparent 30%),
-                radial-gradient(ellipse at 80% 5%,
-                    rgba(160,140,255,0.28) 0%,
-                    transparent 25%),
-                linear-gradient(135deg, #596fe0, #764ba2);
-        }
+    background-attachment: scroll;
+}
 
-        /* ДЕКОРАТИВНЫЕ ФИГУРЫ */
+/* ДЕКОРАТИВНЫЙ ФОН */
 
-        body::before {
-            content: "";
-            position: fixed;
-            width: 380px;
-            height: 380px;
-            top: -130px;
-            left: -140px;
+.background-decor {
+    position: absolute;
+    inset: 0;
+    min-height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
 
-            border: 2px solid rgba(255,255,255,0.25);
-            border-radius: 50%;
+.ring {
+    position: absolute;
+    border: 2px solid rgba(255,255,255,.24);
+    border-radius: 50%;
+}
 
-            box-shadow:
-                0 0 0 30px rgba(255,255,255,0.07),
-                0 0 0 65px rgba(255,255,255,0.045),
-                0 0 0 105px rgba(255,255,255,0.025);
+.ring-1 {
+    width: 370px;
+    height: 370px;
+    top: 0;
+    left: -150px;
+    transform: translateY(-170px);
+    box-shadow:
+        0 0 0 25px rgba(255,255,255,.06),
+        0 0 0 65px rgba(255,255,255,.09),
+        0 0 0 105px rgba(255,255,255,.045);
+}
 
-            pointer-events: none;
-            z-index: 0;
-        }
+.ring-2 {
+    width: 270px;
+    height: 270px;
+    top: 35px;
+    right: 50px;
+    box-shadow:
+        0 0 0 25px rgba(255,255,255,.10),
+        0 0 0 50px rgba(255,255,255,.045);
+}
 
-        body::after {
-            content: "";
-            position: fixed;
-            width: 320px;
-            height: 320px;
-            bottom: -100px;
-            right: -100px;
+.ring-3 {
+    width: 400px;
+    height: 400px;
+    bottom: 0;
+    right: -100px;
+    transform: translateY(190px);
+    box-shadow:
+        0 0 0 28px rgba(255,255,255,.13),
+        0 0 0 65px rgba(255,255,255,.045);
+}
 
-            background: rgba(220,205,255,0.17);
-            border: 2px solid rgba(255,255,255,0.25);
-            border-radius: 38%;
-            transform: rotate(35deg);
+.glow-circle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,.18);
+    filter: blur(1px);
+}
 
-            box-shadow:
-                0 0 0 30px rgba(255,255,255,0.07),
-                0 0 0 65px rgba(255,255,255,0.04);
+.glow-1 {
+    width: 260px;
+    height: 260px;
+    left: -75px;
+    top: 47%;
+}
 
-            pointer-events: none;
-            z-index: 0;
-        }
+.glow-2 {
+    width: 200px;
+    height: 200px;
+    right: -50px;
+    top: 75%;
+}
 
-        /* ГЛАВНАЯ КАРТОЧКА */
+.glow-3 {
+    width: 110px;
+    height: 110px;
+    right: 25%;
+    top: 0;
+    transform: translateY(-45px);
+    filter: blur(35px);
+    background: rgba(255,190,255,.35);
+}
 
-        .container {
-            max-width: 850px;
-            margin: 0 auto;
-            background: #ffffff;
-            padding: 35px;
-            border-radius: 22px;
-            box-shadow: 0 15px 45px rgba(30, 20, 70, 0.22);
-            position: relative;
-            z-index: 1;
-        }
+.dot {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.42);
+}
 
-        /* ЗАГОЛОВОК */
+.dot-1 { top: 28%; left: 15%; }
+.dot-2 { top: 55%; left: 15%; }
+.dot-3 { top: 80%; left: 7%; }
+.dot-4 { top: 30%; right: 3%; }
+.dot-5 { top: 61%; right: 15%; }
 
-        .header {
-            text-align: center;
-            margin-bottom: 25px;
-        }
+.triangle {
+    position: absolute;
+    width: 55px;
+    height: 55px;
+    background: rgba(255,255,255,.45);
+    clip-path: polygon(50% 0%,100% 100%,0% 100%);
+}
 
-        .header h1 {
-            font-size: 32px;
-            color: #5141a0;
-            margin-bottom: 10px;
-        }
+.triangle::after {
+    content: "";
+    position: absolute;
+    inset: 4px;
+    background: #6958e4;
+    clip-path: polygon(50% 0%,100% 100%,0% 100%);
+}
 
-        .header p {
-            color: #77738c;
-            line-height: 1.5;
-            margin-bottom: 5px;
-        }
+.triangle-1 {
+    left: 9%;
+    top: 33%;
+    transform: rotate(18deg);
+}
 
-        /* ИНСТРУКЦИЯ */
+.triangle-2 {
+    right: 12%;
+    top: 45%;
+    transform: rotate(-90deg);
+}
 
-        .info {
-            background: #f3f0ff;
-            border-left: 4px solid #7962d9;
-            padding: 16px;
-            border-radius: 10px;
-            line-height: 1.6;
-            margin-bottom: 25px;
-            color: #514b70;
-        }
+.triangle-3 {
+    left: 13%;
+    top: 88%;
+    transform: rotate(165deg);
+}
 
-        /* ПРОГРЕСС */
+/* ГЛАВНАЯ КАРТОЧКА */
 
-        .progress-info {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-            margin-bottom: 10px;
-            font-size: 14px;
-            color: #68627f;
-        }
+.container {
+    max-width: 920px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 35px;
+    border-radius: 22px;
+    box-shadow: 0 15px 45px rgba(30,20,70,.25);
+    position: relative;
+    z-index: 1;
+}
 
-        .progress-container {
-            height: 9px;
-            background: #ece9f5;
-            border-radius: 20px;
-            overflow: hidden;
-            margin-bottom: 30px;
-        }
+/* ЗАГОЛОВОК */
 
-        .progress-bar {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #667eea, #9b70dc);
-            border-radius: 20px;
-            transition: width 0.3s ease;
-        }
+.header {
+    text-align: center;
+    margin-bottom: 25px;
+}
 
-        /* ВОПРОСЫ */
+.header h1 {
+    font-size: 36px;
+    color: #4030bd;
+    margin-bottom: 10px;
+}
 
-        .question {
-            background: #faf9ff;
-            border: 1px solid #e9e5f5;
-            padding: 22px;
-            border-radius: 14px;
-            margin-bottom: 20px;
-        }
+.header p {
+    color: #7770a8;
+    line-height: 1.5;
+    margin-bottom: 5px;
+    font-size: 17px;
+}
 
-        .question h3 {
-            font-size: 17px;
-            line-height: 1.5;
-            margin-bottom: 16px;
-            color: #38334f;
-        }
+.header p:first-of-type {
+    font-size: 23px;
+    color: #34258f;
+}
 
-        .question-number {
-            color: #8068d7;
-            font-weight: bold;
-            margin-right: 5px;
-        }
+/* ИНСТРУКЦИЯ */
 
-        /* ВАРИАНТЫ ОТВЕТОВ */
+.info {
+    background: linear-gradient(110deg,#f0edff,#e8e1ff);
+    border-left: 5px solid #7054ff;
+    padding: 16px;
+    border-radius: 12px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    color: #30265f;
+}
 
-        .option {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            background: #ffffff;
-            border: 1px solid #e5e1ef;
-            padding: 13px;
-            border-radius: 9px;
-            margin-bottom: 9px;
-            cursor: pointer;
-            transition: 0.2s;
-            line-height: 1.5;
-        }
+/* ПРОГРЕСС */
 
-        .option:last-child {
-            margin-bottom: 0;
-        }
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #30265f;
+}
 
-        .option:hover {
-            border-color: #8c78df;
-            background: #f5f2ff;
-        }
+.progress-container {
+    height: 12px;
+    background: #e6e0f7;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 25px;
+}
 
-        .option:has(input:checked) {
-            border-color: #7962d9;
-            background: #f0edff;
-        }
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg,#6675f5,#9b55d9);
+    border-radius: 20px;
+    transition: width .3s ease;
+}
 
-        .option input {
-            margin-top: 4px;
-            accent-color: #7962d9;
-            flex-shrink: 0;
-        }
+/* ВОПРОСЫ */
 
-        /* КНОПКИ */
+.question {
+    background: #fff;
+    border: 1px solid #e5def5;
+    padding: 20px;
+    border-radius: 14px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(90,65,160,.06);
+}
 
-        .main-button {
-            display: block;
-            width: 100%;
-            padding: 16px;
-            border: none;
-            border-radius: 12px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-            margin-top: 20px;
-        }
+.question h3 {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 16px;
+    color: #30265f;
+}
 
-        .main-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 7px 18px rgba(102, 126, 234, 0.3);
-        }
+.question-number {
+    color: #7054d9;
+    font-weight: bold;
+    margin-right: 5px;
+}
 
-        /* ПРЕДУПРЕЖДЕНИЕ */
+/* ВАРИАНТЫ ОТВЕТОВ */
 
-        .warning {
-            display: none;
-            color: #d94b62;
-            background: #fff0f2;
-            padding: 12px;
-            border-radius: 9px;
-            margin-top: 15px;
-            text-align: center;
-        }
+.option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: #fff;
+    border: 1px solid #e5e0f2;
+    padding: 12px 14px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: .2s;
+    line-height: 1.5;
+}
 
-        /* РЕЗУЛЬТАТ */
+.option:last-child {
+    margin-bottom: 0;
+}
 
-        #result {
-            display: none;
-            text-align: center;
-            padding: 25px 10px;
-        }
+.option:hover {
+    border-color: #8c78df;
+    background: #f6f3ff;
+}
 
-        .result-label {
-            color: #77738c;
-            margin-bottom: 10px;
-        }
+.option:has(input:checked) {
+    border-color: #7962d9;
+    background: #f0edff;
+}
 
-        .score {
-            font-size: 48px;
-            font-weight: bold;
-            color: #705bc6;
-            margin-bottom: 15px;
-        }
+.option input {
+    margin-top: 4px;
+    accent-color: #7962d9;
+    flex-shrink: 0;
+}
 
-        #resultTitle {
-            font-size: 25px;
-            color: #5141a0;
-            margin-bottom: 15px;
-        }
+/* КНОПКИ */
 
-        #resultDescription {
-            color: #625e75;
-            line-height: 1.7;
-            max-width: 600px;
-            margin: 0 auto;
-        }
+.main-button {
+    display: block;
+    width: 100%;
+    padding: 17px;
+    border: none;
+    border-radius: 40px;
+    background: linear-gradient(110deg,#6864f5,#7733ad);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .2s;
+    margin-top: 20px;
+}
 
-        .restart-button {
-            max-width: 350px;
-            margin: 25px auto 0;
-        }
+.main-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 18px rgba(102,126,234,.3);
+}
 
-        /* ПОДВАЛ */
+/* ПРЕДУПРЕЖДЕНИЕ */
 
-        .footer {
-            text-align: center;
-            color: #9994aa;
-            font-size: 13px;
-            line-height: 1.5;
-            margin-top: 30px;
-        }
+.warning {
+    display: none;
+    color: #d90035;
+    background: #ffe2ed;
+    padding: 13px;
+    border-radius: 12px;
+    margin-top: 15px;
+    text-align: center;
+}
 
-        /* НАСТРОЙКИ ДЛЯ КОМПЬЮТЕРА */
+/* РЕЗУЛЬТАТ */
 
-        @media (min-width: 1000px) {
-            body {
-                background:
-                    radial-gradient(circle at 12% 20%,
-                        rgba(255,255,255,0.22) 0 130px,
-                        transparent 132px),
-                    radial-gradient(circle at 90% 75%,
-                        rgba(255,255,255,0.18) 0 170px,
-                        transparent 172px),
-                    radial-gradient(ellipse at 80% 10%,
-                        rgba(190,170,255,0.30),
-                        transparent 35%),
-                    linear-gradient(135deg, #596fe0, #764ba2);
-            }
+#result {
+    display: none;
+    text-align: center;
+    padding: 25px 10px;
+}
 
-            body::before {
-                width: 480px;
-                height: 480px;
-                top: -180px;
-                left: -170px;
-            }
+.result-label {
+    color: #77738c;
+    margin-bottom: 10px;
+}
 
-            body::after {
-                width: 420px;
-                height: 420px;
-                bottom: -150px;
-                right: -130px;
-            }
-        }
+.score {
+    font-size: 48px;
+    font-weight: bold;
+    color: #705bc6;
+    margin-bottom: 15px;
+}
 
-        /* НАСТРОЙКИ ДЛЯ ТЕЛЕФОНОВ */
+#resultTitle {
+    font-size: 25px;
+    color: #5141a0;
+    margin-bottom: 15px;
+}
 
-        @media (max-width: 600px) {
-            body {
-                padding: 18px 10px;
+#resultDescription {
+    color: #625e75;
+    line-height: 1.7;
+    max-width: 600px;
+    margin: 0 auto;
+}
 
-                background:
-                    radial-gradient(circle at 0% 8%,
-                        rgba(255,255,255,0.30) 0 85px,
-                        transparent 87px),
-                    radial-gradient(circle at 100% 90%,
-                        rgba(255,255,255,0.25) 0 110px,
-                        transparent 112px),
-                    linear-gradient(145deg, #667eea, #764ba2);
-            }
+.restart-button {
+    max-width: 350px;
+    margin: 25px auto 0;
+}
 
-            body::before {
-                width: 190px;
-                height: 190px;
-                top: 3%;
-                left: -100px;
-            }
+/* ПОДВАЛ */
 
-            body::after {
-                width: 180px;
-                height: 180px;
-                bottom: 3%;
-                right: -90px;
-            }
+.footer {
+    text-align: center;
+    color: #8983ad;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-top: 30px;
+}
 
-            .container {
-                padding: 22px 16px;
-            }
+/* ТЕЛЕФОНЫ */
 
-            .header h1 {
-                font-size: 26px;
-            }
+@media (max-width: 600px) {
+    body {
+        padding: 18px 10px;
+    }
 
-            .question {
-                padding: 16px;
-            }
+    .container {
+        padding: 22px 16px;
+        border-radius: 18px;
+    }
 
-            .question h3 {
-                font-size: 16px;
-            }
-        }
+    .header h1 {
+        font-size: 27px;
+    }
 
-    </style>
+    .header p:first-of-type {
+        font-size: 19px;
+    }
+
+    .header p {
+        font-size: 15px;
+    }
+
+    .question {
+        padding: 16px;
+    }
+
+    .question h3 {
+        font-size: 16px;
+    }
+
+    .option {
+        font-size: 14px;
+        padding: 11px;
+    }
+
+    .ring-1 {
+        width: 210px;
+        height: 210px;
+        left: -110px;
+        transform: translateY(-90px);
+    }
+
+    .ring-2 {
+        width: 150px;
+        height: 150px;
+        top: 70px;
+        right: -65px;
+    }
+
+    .ring-3 {
+        width: 230px;
+        height: 230px;
+        right: -100px;
+        transform: translateY(100px);
+    }
+
+    .glow-1 {
+        width: 140px;
+        height: 140px;
+    }
+
+    .glow-2 {
+        width: 120px;
+        height: 120px;
+    }
+
+    .triangle {
+        width: 35px;
+        height: 35px;
+    }
+
+    .dot {
+        width: 10px;
+        height: 10px;
+    }
+
+    .main-button {
+        font-size: 16px;
+        padding: 15px;
+    }
+}
+</style>
 </head>
 
 <body>
+
+<!-- ДЕКОРАТИВНЫЙ ФОН -->
+
+<div class="background-decor">
+    <div class="ring ring-1"></div>
+    <div class="ring ring-2"></div>
+    <div class="ring ring-3"></div>
+
+    <div class="glow-circle glow-1"></div>
+    <div class="glow-circle glow-2"></div>
+    <div class="glow-circle glow-3"></div>
+
+    <div class="dot dot-1"></div>
+    <div class="dot dot-2"></div>
+    <div class="dot dot-3"></div>
+    <div class="dot dot-4"></div>
+    <div class="dot dot-5"></div>
+
+    <div class="triangle triangle-1"></div>
+    <div class="triangle triangle-2"></div>
+    <div class="triangle triangle-3"></div>
+</div>
 
 <div class="container">
 
@@ -400,7 +519,6 @@
     </div>
 
     <form id="testForm">
-
         <div id="questions"></div>
 
         <p class="warning" id="warning">
@@ -410,26 +528,18 @@
         <button type="submit" class="main-button">
             Узнать результат
         </button>
-
     </form>
 
     <div id="result">
-
         <p class="result-label">Твой результат</p>
-
         <div class="score" id="score">0 / 20</div>
-
         <h2 id="resultTitle"></h2>
-
         <p id="resultDescription"></p>
 
-        <button
-            type="button"
-            class="main-button restart-button"
+        <button type="button" class="main-button restart-button"
             onclick="restartTest()">
             Пройти тест заново
         </button>
-
     </div>
 
     <div class="footer">
@@ -440,264 +550,233 @@
 </div>
 
 <script>
-
-    const questions = [
-        {
-            text: "Ты пришёл в компанию, где все уже знакомы друг с другом. Обычно ты:",
-            answers: [
-                "Сразу начинаю общаться и веду себя как обычно.",
-                "Сначала присматриваюсь к людям, а потом подключаюсь к разговору.",
-                "Стараюсь вести себя так, чтобы быстрее понравиться остальным."
-            ]
-        },
-        {
-            text: "Твои друзья решили посмотреть фильм, который тебе совершенно не интересен. Как поступишь?",
-            answers: [
-                "Предложу посмотреть что-нибудь другое.",
-                "Не буду спорить и посмотрю вместе со всеми.",
-                "Попробую убедить остальных выбрать другой фильм, но если не получится — соглашусь."
-            ]
-        },
-        {
-            text: "Ты высказал своё мнение, но все остальные в компании думают иначе. Что будешь делать?",
-            answers: [
-                "Объясню свою позицию, даже если никто меня не поддерживает.",
-                "Выслушаю остальных и подумаю, возможно, я чего-то не учёл.",
-                "Скорее соглашусь с большинством, чтобы не создавать спор."
-            ]
-        },
-        {
-            text: "В компании все смеются над шуткой, которую ты считаешь неуместной. Как ты отреагируешь?",
-            answers: [
-                "Не стану смеяться, если мне действительно не смешно.",
-                "Просто промолчу и не буду обращать на это внимания.",
-                "Тоже посмеюсь, чтобы не выглядеть чужим среди остальных."
-            ]
-        },
-        {
-            text: "Одногруппники решили пропустить занятие и зовут тебя с собой. Твоё отношение?",
-            answers: [
-                "Не пойду, если сам не хочу пропускать.",
-                "Сначала подумаю, насколько это важно для меня.",
-                "Скорее всего, пойду вместе со всеми."
-            ]
-        },
-        {
-            text: "Ты купил вещь, которая тебе очень нравится, но друзья начинают говорить, что она тебе не подходит. Что сделаешь?",
-            answers: [
-                "Оставлю её, если самому нравится.",
-                "Прислушаюсь к их мнению, но окончательно решу сам.",
-                "Начну сомневаться и, возможно, передумаю."
-            ]
-        },
-        {
-            text: "В новой компании все придерживаются определённых правил поведения, которые тебе непривычны. Как поступишь?",
-            answers: [
-                "Буду вести себя так, как привык, если это никому не мешает.",
-                "Постараюсь немного подстроиться под компанию.",
-                "Полностью изменю своё поведение, чтобы не выделяться."
-            ]
-        },
-        {
-            text: "Во время группового задания все выбрали один вариант решения, хотя ты считаешь другой вариант более удачным.",
-            answers: [
-                "Буду отстаивать свой вариант и объясню его преимущества.",
-                "Предложу сравнить оба варианта перед принятием решения.",
-                "Соглашусь с группой, чтобы не затягивать обсуждение."
-            ]
-        },
-        {
-            text: "Тебя пригласили на мероприятие, куда идут почти все твои друзья, но у тебя нет особого желания туда идти.",
-            answers: [
-                "Откажусь, если не хочу.",
-                "Возможно, пойду ненадолго ради компании.",
-                "Пойду, потому что не хочется оставаться в стороне."
-            ]
-        },
-        {
-            text: "Как ты обычно ведёшь себя, когда понимаешь, что твоё мнение отличается от мнения большинства?",
-            answers: [
-                "Спокойно говорю то, что думаю.",
-                "Иногда сомневаюсь, но стараюсь разобраться самостоятельно.",
-                "Часто предпочитаю не высказываться, чтобы не отличаться от остальных."
-            ]
-        }
-    ];
-
-    const questionsContainer = document.getElementById("questions");
-    const form = document.getElementById("testForm");
-    const warning = document.getElementById("warning");
-    const progressBar = document.getElementById("progressBar");
-    const progressText = document.getElementById("progressText");
-
-    // СОЗДАНИЕ ВОПРОСОВ
-
-    function renderQuestions() {
-
-        questionsContainer.innerHTML = "";
-
-        questions.forEach((question, index) => {
-
-            const questionDiv = document.createElement("div");
-            questionDiv.className = "question";
-
-            const title = document.createElement("h3");
-
-            title.innerHTML =
-                `<span class="question-number">${index + 1}.</span>`;
-
-            title.appendChild(document.createTextNode(question.text));
-            questionDiv.appendChild(title);
-
-            question.answers.forEach((answer, answerIndex) => {
-
-                const label = document.createElement("label");
-                label.className = "option";
-
-                const radio = document.createElement("input");
-                radio.type = "radio";
-                radio.name = `question${index}`;
-                radio.value = answerIndex;
-
-                radio.addEventListener("change", updateProgress);
-
-                const span = document.createElement("span");
-                span.textContent = answer;
-
-                label.appendChild(radio);
-                label.appendChild(span);
-
-                questionDiv.appendChild(label);
-
-            });
-
-            questionsContainer.appendChild(questionDiv);
-
-        });
-
+const questions = [
+    {
+        text: "Ты пришёл в компанию, где все уже знакомы друг с другом. Обычно ты:",
+        answers: [
+            "Сразу начинаю общаться и веду себя как обычно.",
+            "Сначала присматриваюсь к людям, а потом подключаюсь к разговору.",
+            "Стараюсь вести себя так, чтобы быстрее понравиться остальным."
+        ]
+    },
+    {
+        text: "Твои друзья решили посмотреть фильм, который тебе совершенно не интересен. Как поступишь?",
+        answers: [
+            "Предложу посмотреть что-нибудь другое.",
+            "Не буду спорить и посмотрю вместе со всеми.",
+            "Попробую убедить остальных выбрать другой фильм, но если не получится — соглашусь."
+        ]
+    },
+    {
+        text: "Ты высказал своё мнение, но все остальные в компании думают иначе. Что будешь делать?",
+        answers: [
+            "Объясню свою позицию, даже если никто меня не поддерживает.",
+            "Выслушаю остальных и подумаю, возможно, я чего-то не учёл.",
+            "Скорее соглашусь с большинством, чтобы не создавать спор."
+        ]
+    },
+    {
+        text: "В компании все смеются над шуткой, которую ты считаешь неуместной. Как ты отреагируешь?",
+        answers: [
+            "Не стану смеяться, если мне действительно не смешно.",
+            "Просто промолчу и не буду обращать на это внимания.",
+            "Тоже посмеюсь, чтобы не выглядеть чужим среди остальных."
+        ]
+    },
+    {
+        text: "Одногруппники решили пропустить занятие и зовут тебя с собой. Твоё отношение?",
+        answers: [
+            "Не пойду, если сам не хочу пропускать.",
+            "Сначала подумаю, насколько это важно для меня.",
+            "Скорее всего, пойду вместе со всеми."
+        ]
+    },
+    {
+        text: "Ты купил вещь, которая тебе очень нравится, но друзья начинают говорить, что она тебе не подходит. Что сделаешь?",
+        answers: [
+            "Оставлю её, если самому нравится.",
+            "Прислушаюсь к их мнению, но окончательно решу сам.",
+            "Начну сомневаться и, возможно, передумаю."
+        ]
+    },
+    {
+        text: "В новой компании все придерживаются определённых правил поведения, которые тебе непривычны. Как поступишь?",
+        answers: [
+            "Буду вести себя так, как привык, если это никому не мешает.",
+            "Постараюсь немного подстроиться под компанию.",
+            "Полностью изменю своё поведение, чтобы не выделяться."
+        ]
+    },
+    {
+        text: "Во время группового задания все выбрали один вариант решения, хотя ты считаешь другой вариант более удачным.",
+        answers: [
+            "Буду отстаивать свой вариант и объясню его преимущества.",
+            "Предложу сравнить оба варианта перед принятием решения.",
+            "Соглашусь с группой, чтобы не затягивать обсуждение."
+        ]
+    },
+    {
+        text: "Тебя пригласили на мероприятие, куда идут почти все твои друзья, но у тебя нет особого желания туда идти.",
+        answers: [
+            "Откажусь, если не хочу.",
+            "Возможно, пойду ненадолго ради компании.",
+            "Пойду, потому что не хочется оставаться в стороне."
+        ]
+    },
+    {
+        text: "Как ты обычно ведёшь себя, когда понимаешь, что твоё мнение отличается от мнения большинства?",
+        answers: [
+            "Спокойно говорю то, что думаю.",
+            "Иногда сомневаюсь, но стараюсь разобраться самостоятельно.",
+            "Часто предпочитаю не высказываться, чтобы не отличаться от остальных."
+        ]
     }
+];
 
-    // ОБНОВЛЕНИЕ ПРОГРЕССА
+const questionsContainer = document.getElementById("questions");
+const form = document.getElementById("testForm");
+const warning = document.getElementById("warning");
+const progressBar = document.getElementById("progressBar");
+const progressText = document.getElementById("progressText");
 
-    function updateProgress() {
+/* СОЗДАНИЕ ВОПРОСОВ */
 
-        const answered = questions.filter((_, index) => {
+function renderQuestions() {
+    questionsContainer.innerHTML = "";
 
-            return document.querySelector(
-                `input[name="question${index}"]:checked`
-            );
+    questions.forEach((question, index) => {
+        const questionDiv = document.createElement("div");
+        questionDiv.className = "question";
 
-        }).length;
+        const title = document.createElement("h3");
+        const number = document.createElement("span");
 
-        const percent = (answered / questions.length) * 100;
+        number.className = "question-number";
+        number.textContent = `${index + 1}.`;
 
-        progressBar.style.width = percent + "%";
-        progressText.textContent = `${answered} из ${questions.length}`;
+        title.appendChild(number);
+        title.appendChild(document.createTextNode(" " + question.text));
+        questionDiv.appendChild(title);
 
-    }
+        question.answers.forEach((answer, answerIndex) => {
+            const label = document.createElement("label");
+            label.className = "option";
 
-    // ПОДСЧЁТ РЕЗУЛЬТАТА
+            const radio = document.createElement("input");
+            radio.type = "radio";
+            radio.name = `question${index}`;
+            radio.value = answerIndex;
 
-    form.addEventListener("submit", function(event) {
+            radio.addEventListener("change", updateProgress);
 
-        event.preventDefault();
+            const span = document.createElement("span");
+            span.textContent = answer;
 
-        let score = 0;
-        let answered = 0;
-
-        questions.forEach((_, index) => {
-
-            const selected = document.querySelector(
-                `input[name="question${index}"]:checked`
-            );
-
-            if (selected) {
-                answered++;
-                score += Number(selected.value);
-            }
-
+            label.appendChild(radio);
+            label.appendChild(span);
+            questionDiv.appendChild(label);
         });
 
-        if (answered !== questions.length) {
+        questionsContainer.appendChild(questionDiv);
+    });
+}
 
-            warning.style.display = "block";
-            return;
+/* ОБНОВЛЕНИЕ ПРОГРЕССА */
 
+function updateProgress() {
+    const answered = questions.filter((_, index) => {
+        return document.querySelector(
+            `input[name="question${index}"]:checked`
+        );
+    }).length;
+
+    const percent = (answered / questions.length) * 100;
+
+    progressBar.style.width = percent + "%";
+    progressText.textContent = `${answered} из ${questions.length}`;
+}
+
+/* ПОДСЧЁТ РЕЗУЛЬТАТА */
+
+form.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    let score = 0;
+    let answered = 0;
+
+    questions.forEach((_, index) => {
+        const selected = document.querySelector(
+            `input[name="question${index}"]:checked`
+        );
+
+        if (selected) {
+            answered++;
+            score += Number(selected.value);
         }
-
-        warning.style.display = "none";
-
-        form.style.display = "none";
-
-        document.querySelector(".info").style.display = "none";
-        document.querySelector(".progress-info").style.display = "none";
-        document.querySelector(".progress-container").style.display = "none";
-
-        document.getElementById("score").textContent = score + " / 20";
-
-        const resultTitle = document.getElementById("resultTitle");
-        const resultDescription = document.getElementById("resultDescription");
-
-        if (score <= 6) {
-
-            resultTitle.textContent = "Низкий уровень конформизма";
-
-            resultDescription.textContent =
-                "Ты обычно самостоятельно принимаешь решения и не склонен менять своё мнение только из-за давления окружающих. Для тебя важно сохранять собственную позицию.";
-
-        } else if (score <= 13) {
-
-            resultTitle.textContent = "Средний уровень конформизма";
-
-            resultDescription.textContent =
-                "Ты умеешь учитывать мнение окружающих, но при этом стараешься сохранять собственную точку зрения. В некоторых ситуациях мнение группы может повлиять на твои решения.";
-
-        } else {
-
-            resultTitle.textContent = "Высокий уровень конформизма";
-
-            resultDescription.textContent =
-                "Ты достаточно сильно учитываешь мнение окружающих и иногда предпочитаешь подстраиваться под большинство. Для тебя может быть важно одобрение группы и ощущение принадлежности к ней.";
-
-        }
-
-        document.getElementById("result").style.display = "block";
-
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-
     });
 
-    // ПОВТОРНОЕ ПРОХОЖДЕНИЕ ТЕСТА
-
-    function restartTest() {
-
-        form.reset();
-
-        form.style.display = "block";
-
-        document.querySelector(".info").style.display = "block";
-        document.querySelector(".progress-info").style.display = "flex";
-        document.querySelector(".progress-container").style.display = "block";
-
-        document.getElementById("result").style.display = "none";
-
-        warning.style.display = "none";
-
-        progressBar.style.width = "0%";
-        progressText.textContent = "0 из 10";
-
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-
+    if (answered !== questions.length) {
+        warning.style.display = "block";
+        return;
     }
 
-    renderQuestions();
+    warning.style.display = "none";
+    form.style.display = "none";
 
+    document.querySelector(".info").style.display = "none";
+    document.querySelector(".progress-info").style.display = "none";
+    document.querySelector(".progress-container").style.display = "none";
+
+    document.getElementById("score").textContent = score + " / 20";
+
+    const resultTitle = document.getElementById("resultTitle");
+    const resultDescription = document.getElementById("resultDescription");
+
+    if (score <= 6) {
+        resultTitle.textContent = "Низкий уровень конформизма";
+        resultDescription.textContent =
+            "Ты обычно самостоятельно принимаешь решения и не склонен менять своё мнение только из-за давления окружающих. Для тебя важно сохранять собственную позицию.";
+    } else if (score <= 13) {
+        resultTitle.textContent = "Средний уровень конформизма";
+        resultDescription.textContent =
+            "Ты умеешь учитывать мнение окружающих, но при этом стараешься сохранять собственную точку зрения. В некоторых ситуациях мнение группы может повлиять на твои решения.";
+    } else {
+        resultTitle.textContent = "Высокий уровень конформизма";
+        resultDescription.textContent =
+            "Ты достаточно сильно учитываешь мнение окружающих и иногда предпочитаешь подстраиваться под большинство. Для тебя может быть важно одобрение группы и ощущение принадлежности к ней.";
+    }
+
+    document.getElementById("result").style.display = "block";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+});
+
+/* ПОВТОРНОЕ ПРОХОЖДЕНИЕ */
+
+function restartTest() {
+    form.reset();
+
+    form.style.display = "block";
+    document.querySelector(".info").style.display = "block";
+    document.querySelector(".progress-info").style.display = "flex";
+    document.querySelector(".progress-container").style.display = "block";
+
+    document.getElementById("result").style.display = "none";
+
+    warning.style.display = "none";
+    progressBar.style.width = "0%";
+    progressText.textContent = "0 из 10";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+renderQuestions();
 </script>
 
 </body>
